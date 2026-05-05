@@ -27,29 +27,29 @@ type Keyframe = { name: string; prompt: string };
 
 const KEYFRAMES: Keyframe[] = [
   {
-    name: "01_atelier",
+    name: "01_window_outside",
     prompt:
-      "Cinematic architectural photograph of an empty modern Berlin design studio at golden hour, large industrial windows with warm sunlight streaming in, off-white walls, polished concrete floor, single wooden workbench, minimalist scandinavian aesthetic, photorealistic 4k, soft natural light, depth of field, no people, professional architecture photography, warm beige tones",
+      "Cinematic architectural photograph, exterior view through large floor-to-ceiling industrial window of a modern Berlin design studio, golden hour sunlight, off-white interior walls visible inside, polished concrete floor, warm beige tones, photorealistic 4k, professional architecture photography, soft natural light, depth of field, no people, scandinavian aesthetic, minimal composition",
   },
   {
-    name: "02_workspace",
+    name: "02_window_inside",
     prompt:
-      "Cinematic architectural photograph of a clean modern workspace, MacBook with website wireframes on screen, single lime green plant on desk, warm sunlight from large window, off-white walls, polished concrete, minimalist scandinavian aesthetic, photorealistic 4k, soft natural light, shallow depth of field, no people, professional product photography, warm beige tones",
+      "Cinematic architectural photograph, interior view from just inside large floor-to-ceiling industrial window of a modern Berlin design studio, golden hour sunlight streaming in casting long shadows, off-white walls, polished concrete floor, single lime green plant on windowsill in foreground, warm beige tones, photorealistic 4k, professional architecture photography, depth of field, no people, scandinavian aesthetic",
   },
   {
-    name: "03_smartphone",
+    name: "03_studio_wide",
     prompt:
-      "Cinematic close-up of a single smartphone laying flat on a light wooden surface, screen displaying a beautiful modern website for a craftsman business with lime green accents, warm afternoon sunlight casting soft shadows, minimalist composition, photorealistic 4k, professional product photography, depth of field, off-white background, scandinavian aesthetic",
+      "Cinematic architectural photograph, wide interior shot of a modern Berlin design studio, large industrial window on the right with golden hour sunlight streaming in, wooden workbench in center with MacBook, single lime green plant, off-white walls, polished concrete floor, warm beige tones, photorealistic 4k, professional architecture photography, depth of field, no people, scandinavian aesthetic, minimal composition",
   },
   {
-    name: "04_multiple",
+    name: "04_workspace_closer",
     prompt:
-      "Cinematic top-down photograph of four smartphones arranged in a clean grid on a light wooden surface, each displaying a different professional craftsman website (painter, electrician, roofer, carpenter) with subtle lime green accents, warm natural sunlight, minimalist composition, photorealistic 4k, professional product photography, off-white background, scandinavian aesthetic",
+      "Cinematic architectural photograph, medium shot of wooden workbench in modern Berlin design studio, MacBook displaying website wireframes on screen, smartphone next to it, single lime green plant, golden hour sunlight from left, off-white walls in background slightly out of focus, warm beige tones, photorealistic 4k, professional product photography, shallow depth of field, no people, scandinavian aesthetic",
   },
   {
-    name: "05_window",
+    name: "05_smartphone_macro",
     prompt:
-      "Cinematic architectural photograph looking out of large studio window onto Berlin street at golden hour, soft sunlight, modern minimalist interior in foreground with single lime green plant on windowsill, off-white walls, polished concrete, photorealistic 4k, warm tones, depth of field, no people, professional architecture photography",
+      "Cinematic architectural photograph, extreme close-up of a single smartphone on light wooden surface, screen displaying a beautiful modern minimalist craftsman website with subtle lime green accents, golden hour sunlight casting warm shadow across surface, off-white blurred background, warm beige tones, photorealistic 4k, professional product photography, very shallow depth of field, scandinavian aesthetic, minimal composition",
   },
 ];
 

@@ -28,11 +28,20 @@ fs.mkdirSync(OUT_DIR, { recursive: true });
 fs.mkdirSync(TMP_DIR, { recursive: true });
 
 const KEYFRAME_NAMES = [
-  "01_atelier",
-  "02_workspace",
-  "03_smartphone",
-  "04_multiple",
-  "05_window",
+  "01_window_outside",
+  "02_window_inside",
+  "03_studio_wide",
+  "04_workspace_closer",
+  "05_smartphone_macro",
+];
+
+// One specific camera move per segment (Kling renders camera motion much
+// better when given a concrete direction than a vague "transition").
+const SEGMENT_PROMPTS = [
+  "slow camera dolly forward through window into studio interior, warm natural lighting, architectural photography style",
+  "slow camera pan left revealing the studio workspace, warm natural lighting, architectural photography style",
+  "slow camera dolly forward toward wooden workbench, warm natural lighting, architectural photography style",
+  "slow camera zoom in on smartphone on workbench, shallow depth of field, warm natural lighting, architectural photography style",
 ];
 
 const FRAMES_PER_SEGMENT = 20;
@@ -40,9 +49,6 @@ const FPS = 4;
 const WIDTH = 1280;
 const HEIGHT = 720;
 const QUALITY = 4;
-
-const TRANSITION_PROMPT =
-  "smooth cinematic camera movement, slow elegant transition, warm natural lighting, architectural photography style";
 
 function uploadToFal(filePath: string): Promise<string> {
   const blob = new Blob([new Uint8Array(fs.readFileSync(filePath))], {
@@ -67,16 +73,19 @@ async function generateSegment(
     return videoPath;
   }
 
+  const prompt = SEGMENT_PROMPTS[segmentIdx];
+  if (!prompt) throw new Error(`No prompt for segment ${segmentIdx + 1}`);
+
   console.log(`  · uploading ${startName}.jpg + ${endName}.jpg…`);
   const [startUrl, endUrl] = await Promise.all([
     uploadToFal(startPath),
     uploadToFal(endPath),
   ]);
 
-  console.log(`  · Kling Video v1.6 Pro (5s)…`);
+  console.log(`  · Kling Video v1.6 Pro (5s) — "${prompt.slice(0, 60)}…"`);
   const result = await fal.subscribe("fal-ai/kling-video/v1.6/pro/image-to-video", {
     input: {
-      prompt: TRANSITION_PROMPT,
+      prompt,
       image_url: startUrl,
       tail_image_url: endUrl,
       duration: "5",
