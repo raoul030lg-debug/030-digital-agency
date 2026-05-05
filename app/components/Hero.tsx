@@ -98,7 +98,7 @@ export default function Hero() {
       aria-label="Hero"
       className="
         relative isolate flex min-h-dvh w-full flex-col overflow-hidden
-        bg-page
+        bg-transparent
         px-6 pb-10 pt-6 md:px-10 lg:px-12 lg:pb-12 lg:pt-8
       "
     >
