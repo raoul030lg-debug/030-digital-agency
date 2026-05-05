@@ -1,0 +1,545 @@
+"use client";
+
+import {
+  Suspense,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+  forwardRef,
+  type RefObject,
+} from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Text } from "@react-three/drei";
+import { useReducedMotion } from "framer-motion";
+import * as THREE from "three";
+
+const ACCENT = "#d4ff4f";
+const RADIUS = 3;
+
+export type IndustryStatus = "live" | "wip" | "soon";
+
+export type Industry = {
+  id: string;
+  name: string;
+  status: IndustryStatus;
+  statusLabel: string;
+  href?: string;
+};
+
+export type CarouselHandle = {
+  setActiveIndex: (i: number) => void;
+};
+
+type CarouselState = {
+  rotation: number; // current Y rotation (radians)
+  rotationTarget: number; // target Y rotation (radians)
+  lastInteraction: number;
+};
+
+const ANGLE_STEP_FROM_COUNT = (count: number) => (Math.PI * 2) / count;
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const handle = () => setIsMobile(mq.matches);
+    handle();
+    mq.addEventListener("change", handle);
+    return () => mq.removeEventListener("change", handle);
+  }, []);
+  return isMobile;
+}
+
+function statusColor(status: IndustryStatus) {
+  return status === "live" ? ACCENT : "#5a5a55";
+}
+
+type StelaProps = {
+  industry: Industry;
+  index: number;
+  count: number;
+  activeIndex: number;
+};
+
+function Stela({ industry, index, count, activeIndex }: StelaProps) {
+  const groupRef = useRef<THREE.Group>(null);
+  const glowRef = useRef<THREE.Mesh>(null);
+  const isLive = industry.status === "live";
+  const isActive = index === activeIndex;
+
+  const baseAngle = useMemo(
+    () => (index / count) * Math.PI * 2,
+    [index, count],
+  );
+  const x = Math.sin(baseAngle) * RADIUS;
+  const z = Math.cos(baseAngle) * RADIUS;
+
+  const baseScale = isLive ? 1.05 : 1;
+
+  useFrame((state) => {
+    const g = groupRef.current;
+    if (!g) return;
+    const t = state.clock.elapsedTime;
+    const targetScale = baseScale * (isActive ? 1.06 : 1);
+    const k = 0.08;
+    g.scale.x += (targetScale - g.scale.x) * k;
+    g.scale.y += (targetScale - g.scale.y) * k;
+    g.scale.z += (targetScale - g.scale.z) * k;
+
+    if (glowRef.current && isLive) {
+      const mat = glowRef.current.material as THREE.MeshBasicMaterial;
+      const o = (Math.sin(t * 1.6) * 0.5 + 0.5) * 0.35 + 0.18;
+      mat.opacity = isActive ? o : Math.min(o * 0.55, 0.22);
+    }
+  });
+
+  // Geometry
+  const w = 1.0;
+  const h = 2.2;
+  const d = 0.36;
+
+  const bodyColor = isLive ? "#141414" : "#1f1f1f";
+  const ringColor = isLive ? ACCENT : "#3a3a3a";
+
+  return (
+    <group ref={groupRef} position={[x, 0, z]} rotation={[0, baseAngle, 0]}>
+      {/* Base plate */}
+      <mesh position={[0, 0.04, 0]}>
+        <boxGeometry args={[w * 1.25, 0.08, d * 1.5]} />
+        <meshStandardMaterial color="#0e0e0e" roughness={0.9} />
+      </mesh>
+
+      {/* Body */}
+      <mesh position={[0, h / 2 + 0.08, 0]}>
+        <boxGeometry args={[w, h, d]} />
+        <meshStandardMaterial color={bodyColor} roughness={0.78} metalness={0.05} />
+      </mesh>
+
+      {/* Top accent stripe (front face) */}
+      <mesh position={[0, h + 0.08, d / 2 + 0.001]}>
+        <planeGeometry args={[w * 0.86, 0.04]} />
+        <meshBasicMaterial color={ringColor} toneMapped={false} />
+      </mesh>
+
+      {/* Status dot on stela face */}
+      <mesh position={[-w / 2 + 0.16, h - 0.18, d / 2 + 0.002]}>
+        <circleGeometry args={[0.045, 24]} />
+        <meshBasicMaterial color={statusColor(industry.status)} toneMapped={false} />
+      </mesh>
+
+      {/* Industry name on front face */}
+      <Text
+        position={[0, h * 0.62, d / 2 + 0.003]}
+        fontSize={0.22}
+        anchorX="center"
+        anchorY="middle"
+        color="#fafaf7"
+        outlineWidth={0}
+        maxWidth={w - 0.1}
+      >
+        {industry.name}
+      </Text>
+
+      {/* Status label small */}
+      <Text
+        position={[0, h * 0.62 - 0.32, d / 2 + 0.003]}
+        fontSize={0.085}
+        anchorX="center"
+        anchorY="middle"
+        color={isLive ? ACCENT : "#9a9a92"}
+        letterSpacing={0.12}
+        maxWidth={w - 0.1}
+      >
+        {industry.statusLabel.toUpperCase()}
+      </Text>
+
+      {/* ID number on lower face */}
+      <Text
+        position={[0, 0.5, d / 2 + 0.003]}
+        fontSize={0.07}
+        anchorX="center"
+        anchorY="middle"
+        color="#5a5a55"
+        letterSpacing={0.18}
+      >
+        {`0${index + 1} / 0${count}`}
+      </Text>
+
+      {/* Lime glow halo (live only) — back of stela */}
+      {isLive && (
+        <mesh ref={glowRef} position={[0, h / 2 + 0.08, -d / 2 - 0.002]}>
+          <planeGeometry args={[w * 2.4, h * 1.4]} />
+          <meshBasicMaterial
+            color={ACCENT}
+            transparent
+            opacity={0.22}
+            toneMapped={false}
+            depthWrite={false}
+          />
+        </mesh>
+      )}
+
+      {/* Subtle ground shadow ellipse */}
+      <mesh position={[0, 0.011, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <circleGeometry args={[w * 0.7, 24]} />
+        <meshBasicMaterial color="#1a1a1a" transparent opacity={0.1} depthWrite={false} />
+      </mesh>
+    </group>
+  );
+}
+
+function ActiveSpot({ activeIndex, count }: { activeIndex: number; count: number }) {
+  // Lime dot on the floor at world-space front position (camera side)
+  // Always at world (0, ~0, RADIUS) — the front-of-camera spot.
+  const ref = useRef<THREE.Mesh>(null);
+  useFrame((state) => {
+    if (!ref.current) return;
+    const t = state.clock.elapsedTime;
+    const mat = ref.current.material as THREE.MeshBasicMaterial;
+    mat.opacity = 0.55 + Math.sin(t * 2) * 0.12;
+  });
+  return (
+    <mesh
+      ref={ref}
+      position={[0, 0.012, RADIUS]}
+      rotation={[-Math.PI / 2, 0, 0]}
+    >
+      <ringGeometry args={[0.42, 0.5, 48]} />
+      <meshBasicMaterial color={ACCENT} transparent opacity={0.6} toneMapped={false} depthWrite={false} />
+    </mesh>
+  );
+}
+
+function CarouselGroup({
+  industries,
+  state,
+  reduced,
+  activeIndex,
+  onActiveChange,
+}: {
+  industries: Industry[];
+  state: RefObject<CarouselState>;
+  reduced: boolean;
+  activeIndex: number;
+  onActiveChange: (i: number) => void;
+}) {
+  const groupRef = useRef<THREE.Group>(null);
+  const lastEmittedStep = useRef<number>(0);
+  const count = industries.length;
+  const angleStep = ANGLE_STEP_FROM_COUNT(count);
+
+  useFrame((_, delta) => {
+    const s = state.current;
+    if (!s || !groupRef.current) return;
+
+    const now = performance.now();
+    const idle = now - s.lastInteraction > 3000;
+
+    if (idle && !reduced) {
+      // Soft auto-drift: 0.5°/s on both rotation and target — no hard snap
+      const drift = (Math.PI / 180) * 0.5 * delta;
+      s.rotation += drift;
+      s.rotationTarget += drift;
+    } else {
+      // Lerp toward target
+      const k = 1 - Math.exp(-delta * 6);
+      s.rotation += (s.rotationTarget - s.rotation) * k;
+    }
+
+    groupRef.current.rotation.y = s.rotation;
+
+    // Continuous active-index emission — only when crossing 45° boundaries.
+    // Use rotation (not target) so glow follows what's actually in front.
+    const step = Math.round(s.rotation / angleStep);
+    if (step !== lastEmittedStep.current) {
+      lastEmittedStep.current = step;
+      const idx = ((-step % count) + count) % count;
+      if (idx !== activeIndex && typeof onActiveChange === "function") {
+        onActiveChange(idx);
+      }
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      {industries.map((ind, i) => (
+        <Stela
+          key={ind.id}
+          industry={ind}
+          index={i}
+          count={count}
+          activeIndex={activeIndex}
+        />
+      ))}
+    </group>
+  );
+}
+
+function CameraRig() {
+  const { camera } = useThree();
+  useEffect(() => {
+    camera.position.set(0, 3, 6);
+    camera.lookAt(0, 0.9, 0);
+    camera.updateProjectionMatrix();
+  }, [camera]);
+  return null;
+}
+
+function Lights() {
+  return (
+    <>
+      <ambientLight intensity={0.55} color="#fffaf0" />
+      <hemisphereLight args={["#fff7e8", "#dfd8c4", 0.45]} />
+      <directionalLight position={[4, 6, 6]} intensity={0.9} color="#fff5e0" />
+      <directionalLight position={[-5, 3, -3]} intensity={0.3} color="#e8efff" />
+      <pointLight
+        position={[0, 2.4, 4.5]}
+        intensity={0.5}
+        distance={9}
+        decay={2}
+        color={ACCENT}
+      />
+    </>
+  );
+}
+
+function Floor() {
+  return (
+    <>
+      {/* Solid ground */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+        <planeGeometry args={[28, 28]} />
+        <meshStandardMaterial color="#ece8dc" roughness={0.96} />
+      </mesh>
+      {/* Subtle ring around carousel platform */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.005, 0]}>
+        <ringGeometry args={[RADIUS - 0.6, RADIUS + 0.6, 64]} />
+        <meshBasicMaterial color="#1a1a1a" transparent opacity={0.05} depthWrite={false} />
+      </mesh>
+    </>
+  );
+}
+
+function Background() {
+  const material = useMemo(() => {
+    return new THREE.ShaderMaterial({
+      uniforms: {
+        uTop: { value: new THREE.Color("#fcfcfa") },
+        uBottom: { value: new THREE.Color("#f4f0e5") },
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        void main() {
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 uTop;
+        uniform vec3 uBottom;
+        varying vec2 vUv;
+        void main() {
+          float y = smoothstep(0.0, 1.0, vUv.y);
+          vec3 col = mix(uBottom, uTop, y);
+          gl_FragColor = vec4(col, 1.0);
+        }
+      `,
+      depthWrite: false,
+    });
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      material.dispose();
+    };
+  }, [material]);
+
+  return (
+    <mesh position={[0, 4, -10]} material={material}>
+      <planeGeometry args={[40, 22]} />
+    </mesh>
+  );
+}
+
+type Props = {
+  industries: Industry[];
+  activeIndex: number;
+  onActiveChange: (i: number) => void;
+};
+
+const ShowcaseCarousel3D = forwardRef<CarouselHandle, Props>(
+  function ShowcaseCarousel3D({ industries, activeIndex, onActiveChange }, ref) {
+    const reduced = useReducedMotion() ?? false;
+    const isMobile = useIsMobile();
+
+    const carouselState = useRef<CarouselState>({
+      rotation: 0,
+      rotationTarget: 0,
+      lastInteraction: 0,
+    });
+
+    const dragState = useRef({
+      active: false,
+      startX: 0,
+      startRotationTarget: 0,
+      pointerId: null as number | null,
+    });
+
+    const count = industries.length;
+    const angleStep = ANGLE_STEP_FROM_COUNT(count);
+
+    const setRotationTargetForIndex = (i: number) => {
+      const desired = -i * angleStep;
+      const current = carouselState.current.rotationTarget;
+      const delta = desired - current;
+      // Wrap delta to [-π, π] for shortest path
+      const wrapped =
+        ((delta + Math.PI) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2) -
+        Math.PI;
+      carouselState.current.rotationTarget = current + wrapped;
+      carouselState.current.lastInteraction = performance.now();
+    };
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        setActiveIndex: (i: number) => {
+          setRotationTargetForIndex(i);
+          onActiveChange(i);
+        },
+      }),
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [angleStep, count, onActiveChange],
+    );
+
+    const snapToNearest = () => {
+      const raw = carouselState.current.rotationTarget;
+      const stepIndex = Math.round(raw / angleStep);
+      carouselState.current.rotationTarget = stepIndex * angleStep;
+      const idx = ((-stepIndex % count) + count) % count;
+      onActiveChange(idx);
+    };
+
+    const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+      dragState.current.active = true;
+      dragState.current.startX = e.clientX;
+      dragState.current.startRotationTarget =
+        carouselState.current.rotationTarget;
+      dragState.current.pointerId = e.pointerId;
+      carouselState.current.lastInteraction = performance.now();
+      try {
+        e.currentTarget.setPointerCapture(e.pointerId);
+      } catch {
+        /* ignore */
+      }
+    };
+
+    const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+      if (!dragState.current.active) return;
+      const dx = e.clientX - dragState.current.startX;
+      // Sensitivity: full viewport drag (~1280px) ≈ 360° rotation
+      const viewport = typeof window !== "undefined" ? window.innerWidth : 1280;
+      const sensitivity = (Math.PI * 2) / Math.max(viewport, 800);
+      carouselState.current.rotationTarget =
+        dragState.current.startRotationTarget + dx * sensitivity;
+      carouselState.current.lastInteraction = performance.now();
+    };
+
+    const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+      if (!dragState.current.active) return;
+      if (dragState.current.pointerId !== null) {
+        try {
+          e.currentTarget.releasePointerCapture(dragState.current.pointerId);
+        } catch {
+          /* ignore */
+        }
+      }
+      dragState.current.active = false;
+      dragState.current.pointerId = null;
+      carouselState.current.lastInteraction = performance.now();
+      snapToNearest();
+    };
+
+    const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        const next = (activeIndex + 1) % count;
+        setRotationTargetForIndex(next);
+        onActiveChange(next);
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        const prev = (activeIndex - 1 + count) % count;
+        setRotationTargetForIndex(prev);
+        onActiveChange(prev);
+      }
+    };
+
+    return (
+      <div
+        role="region"
+        aria-label="Branchen-Karussell — ziehen oder Pfeiltasten verwenden"
+        tabIndex={0}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
+        onKeyDown={onKeyDown}
+        className="
+          group relative h-full w-full select-none touch-none
+          cursor-grab active:cursor-grabbing
+          focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent
+        "
+      >
+        <Canvas
+          dpr={isMobile ? [1, 1.5] : [1, 2]}
+          gl={{
+            antialias: !isMobile,
+            powerPreference: "high-performance",
+            alpha: true,
+          }}
+          shadows={false}
+          camera={{ position: [0, 3, 6], fov: 50, near: 0.1, far: 100 }}
+          frameloop="always"
+        >
+          <Suspense fallback={null}>
+            <fog attach="fog" args={["#fafaf7", 5, 15]} />
+            <Background />
+            <CameraRig />
+            <Lights />
+            <Floor />
+            <ActiveSpot activeIndex={activeIndex} count={count} />
+            <CarouselGroup
+              industries={industries}
+              state={carouselState}
+              reduced={reduced}
+              activeIndex={activeIndex}
+              onActiveChange={onActiveChange}
+            />
+          </Suspense>
+        </Canvas>
+
+        {/* HUD — top-right indicator */}
+        <div className="pointer-events-none absolute right-5 top-5 flex items-center gap-2">
+          <span
+            className="h-1.5 w-1.5 rounded-full"
+            style={{ backgroundColor: ACCENT }}
+          />
+          <span className="font-mono text-[10px] uppercase tracking-wider text-text-mono">
+            Showcase · 3D
+          </span>
+        </div>
+
+        {/* HUD — bottom hint */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-5 flex justify-center">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-muted">
+            ← drag · ← → keys →
+          </span>
+        </div>
+      </div>
+    );
+  },
+);
+
+export default ShowcaseCarousel3D;

@@ -1,0 +1,480 @@
+"use client";
+
+import { useCallback, useRef, useState } from "react";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
+import ShowcaseCarousel3D, {
+  type CarouselHandle,
+  type Industry,
+} from "./ShowcaseCarousel3D";
+
+const MALER_HREF = "https://maler-teal.vercel.app";
+
+const HEADLINE: { word: string; italic: boolean }[] = [
+  { word: "Demos.", italic: false },
+  { word: "Keine", italic: true },
+  { word: "Mockups.", italic: true },
+];
+
+const INDUSTRIES: Industry[] = [
+  {
+    id: "maler",
+    name: "Maler",
+    status: "live",
+    statusLabel: "Premium · Live",
+    href: MALER_HREF,
+  },
+  {
+    id: "elektriker",
+    name: "Elektriker",
+    status: "wip",
+    statusLabel: "in Arbeit",
+  },
+  {
+    id: "dachdecker",
+    name: "Dachdecker",
+    status: "soon",
+    statusLabel: "Q3 2026",
+  },
+  {
+    id: "schreiner",
+    name: "Schreiner",
+    status: "soon",
+    statusLabel: "Q3 2026",
+  },
+];
+
+export default function Showcase() {
+  const reduce = useReducedMotion();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const carouselRef = useRef<CarouselHandle>(null);
+  const active = INDUSTRIES[activeIndex];
+
+  const handleCardClick = useCallback(
+    (index: number) => {
+      const industry = INDUSTRIES[index];
+      if (industry.status === "live" && industry.href) {
+        window.open(industry.href, "_blank", "noopener,noreferrer");
+        return;
+      }
+      carouselRef.current?.setActiveIndex(index);
+    },
+    [],
+  );
+
+  const handleActiveChange = useCallback((i: number) => {
+    setActiveIndex(i);
+  }, []);
+
+  const headlineContainer: Variants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: reduce ? 0 : 0.08,
+        delayChildren: reduce ? 0 : 0.1,
+      },
+    },
+  };
+
+  const wordVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: reduce ? 0 : 32,
+      filter: reduce ? "blur(0px)" : "blur(8px)",
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        duration: reduce ? 0 : 0.8,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
+
+  const fadeUp = (delay = 0): Variants => ({
+    hidden: { opacity: 0, y: reduce ? 0 : 18 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: reduce ? 0 : 0.6,
+        delay: reduce ? 0 : delay,
+        ease: "easeOut",
+      },
+    },
+  });
+
+  const cardsContainer: Variants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: reduce ? 0 : 0.08,
+        delayChildren: reduce ? 0 : 0.15,
+      },
+    },
+  };
+
+  const cardItem: Variants = {
+    hidden: { opacity: 0, y: reduce ? 0 : 22 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: reduce ? 0 : 0.55,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
+
+  const inViewProps = {
+    initial: "hidden",
+    whileInView: "visible",
+    viewport: { once: true, amount: 0.2 },
+  } as const;
+
+  return (
+    <section
+      id="showcase"
+      aria-label="Showcase — Branchen-Demos"
+      className="
+        relative w-full bg-page
+        px-6 py-24 md:px-10 md:py-28
+        lg:px-12 lg:py-32
+      "
+    >
+      <div className="relative mx-auto w-full max-w-7xl">
+        {/* HEADER */}
+        <motion.div
+          {...inViewProps}
+          variants={fadeUp(0)}
+          className="flex flex-col gap-2"
+        >
+          <span
+            className="
+              inline-flex w-fit items-center gap-2 rounded-full
+              border px-3 py-1
+              font-mono text-[10px] uppercase tracking-[0.18em] text-text-mono
+              md:text-xs
+            "
+            style={{ borderColor: "var(--color-border-medium)" }}
+          >
+            <span
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ backgroundColor: "var(--color-accent)" }}
+            />
+            02 / 06 · Showcase
+          </span>
+        </motion.div>
+
+        <motion.h2
+          {...inViewProps}
+          variants={headlineContainer}
+          className="
+            mt-8 max-w-5xl
+            font-serif font-normal
+            text-5xl leading-[0.95] tracking-tight text-text-primary
+            sm:text-6xl
+            md:text-7xl
+            xl:text-8xl
+          "
+        >
+          {HEADLINE.map((item, idx) => (
+            <span
+              key={`${item.word}-${idx}`}
+              className="mr-[0.25em] inline-block overflow-hidden align-baseline"
+            >
+              <motion.span
+                variants={wordVariants}
+                className={`inline-block ${
+                  item.italic ? "italic text-text-italic" : "text-text-primary"
+                }`}
+              >
+                {item.word}
+              </motion.span>
+            </span>
+          ))}
+        </motion.h2>
+
+        <motion.p
+          {...inViewProps}
+          variants={fadeUp(0.5)}
+          className="
+            mt-8 max-w-xl
+            font-sans text-base leading-relaxed text-text-body
+            md:text-lg
+          "
+        >
+          Live deploybare Branchen-Demos. Ziehen am Karussell um zu navigieren —
+          oder klick auf eine Branche unten.
+        </motion.p>
+
+        {/* MAIN GRID: Active-Display + Canvas */}
+        <motion.div
+          {...inViewProps}
+          variants={fadeUp(0.2)}
+          className="
+            mt-16 grid grid-cols-1 gap-8
+            md:mt-20 md:gap-10
+            lg:grid-cols-12 lg:gap-12
+          "
+        >
+          {/* ACTIVE DISPLAY */}
+          <div className="flex flex-col justify-center gap-5 lg:col-span-4">
+            <span
+              className="
+                inline-flex w-fit items-center gap-2
+                font-mono text-[10px] uppercase tracking-[0.22em] text-text-mono
+                md:text-xs
+              "
+            >
+              <span
+                className="h-1.5 w-1.5 rounded-full transition-colors"
+                style={{
+                  backgroundColor:
+                    active.status === "live"
+                      ? "var(--color-accent)"
+                      : "var(--color-text-muted)",
+                }}
+              />
+              Aktive Branche
+            </span>
+
+            <motion.h3
+              key={active.id}
+              initial={{ opacity: 0, y: reduce ? 0 : 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduce ? 0 : 0.4, ease: "easeOut" }}
+              className="
+                font-serif italic font-normal
+                text-5xl leading-[0.95] tracking-tight text-text-primary
+                md:text-6xl
+              "
+            >
+              {active.name}
+            </motion.h3>
+
+            <span
+              className="
+                inline-flex w-fit items-center gap-2 rounded-full
+                border px-3 py-1
+                font-mono text-[10px] uppercase tracking-[0.18em] text-text-mono
+                md:text-xs
+              "
+              style={{
+                borderColor:
+                  active.status === "live"
+                    ? "var(--color-accent)"
+                    : "var(--color-border-medium)",
+              }}
+            >
+              <span
+                className="h-1.5 w-1.5 rounded-full"
+                style={{
+                  backgroundColor:
+                    active.status === "live"
+                      ? "var(--color-accent)"
+                      : "var(--color-text-muted)",
+                }}
+              />
+              {active.statusLabel}
+            </span>
+
+            {active.status === "live" && active.href && (
+              <a
+                href={active.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${active.name}-Demo öffnen`}
+                className="
+                  group mt-2 inline-flex min-h-[52px] w-fit items-center justify-center gap-3
+                  rounded-full px-7 py-3
+                  font-mono text-xs uppercase tracking-[0.18em]
+                  transition-all duration-200
+                  hover:gap-4
+                  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent
+                  md:text-sm
+                "
+                style={{
+                  backgroundColor: "var(--color-accent-dark)",
+                  color: "var(--color-accent)",
+                }}
+              >
+                <span
+                  className="h-1.5 w-1.5 rounded-full"
+                  style={{ backgroundColor: "var(--color-accent)" }}
+                />
+                Demo öffnen
+                <span
+                  aria-hidden="true"
+                  className="transition-transform duration-200 group-hover:translate-x-0.5"
+                >
+                  →
+                </span>
+              </a>
+            )}
+          </div>
+
+          {/* 3D CANVAS */}
+          <div
+            className="
+              relative overflow-hidden rounded-3xl border
+              bg-[linear-gradient(180deg,#fafaf7_0%,#f4f0e6_55%,#eee8d8_100%)]
+              aspect-square
+              md:aspect-[4/3]
+              lg:col-span-8 lg:aspect-[5/4]
+            "
+            style={{ borderColor: "var(--color-border-subtle)" }}
+          >
+            <ShowcaseCarousel3D
+              ref={carouselRef}
+              industries={INDUSTRIES}
+              activeIndex={activeIndex}
+              onActiveChange={handleActiveChange}
+            />
+          </div>
+        </motion.div>
+
+        {/* INDUSTRY CARDS */}
+        <motion.ul
+          {...inViewProps}
+          variants={cardsContainer}
+          className="
+            mt-12 grid grid-cols-1 gap-4
+            md:mt-16 md:grid-cols-2 md:gap-5
+            lg:grid-cols-4 lg:gap-5
+          "
+        >
+          {INDUSTRIES.map((ind, i) => {
+            const isActive = i === activeIndex;
+            const isLive = ind.status === "live";
+            const interactive = isLive ? "cursor-pointer" : "cursor-pointer";
+
+            return (
+              <motion.li key={ind.id} variants={cardItem}>
+                <button
+                  type="button"
+                  onClick={() => handleCardClick(i)}
+                  aria-label={
+                    isLive
+                      ? `${ind.name}-Demo öffnen (externer Link)`
+                      : `${ind.name} im Karussell anzeigen`
+                  }
+                  className={`
+                    group relative flex w-full flex-col items-start gap-3
+                    rounded-2xl text-left
+                    p-6 md:p-7
+                    transition-all duration-200
+                    ${interactive}
+                    ${
+                      isLive
+                        ? "hover:-translate-y-0.5"
+                        : "hover:-translate-y-0.5 opacity-95"
+                    }
+                    focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent
+                  `}
+                  style={{
+                    backgroundColor: isLive
+                      ? "var(--color-page)"
+                      : "var(--color-surface)",
+                    border: isActive
+                      ? "2px solid var(--color-accent)"
+                      : isLive
+                        ? "1px solid var(--color-accent)"
+                        : "1px solid var(--color-border-subtle)",
+                    boxShadow:
+                      isActive && isLive
+                        ? "0 18px 40px -22px rgba(212, 255, 79, 0.55)"
+                        : isActive
+                          ? "0 12px 30px -20px rgba(26, 26, 26, 0.18)"
+                          : "none",
+                  }}
+                >
+                  {/* Active indicator (top-right) */}
+                  {isActive && (
+                    <span
+                      className="
+                        absolute right-4 top-4
+                        font-mono text-[10px] uppercase tracking-[0.22em]
+                      "
+                      style={{
+                        color: isLive ? "#1a1a1a" : "var(--color-text-mono)",
+                      }}
+                    >
+                      ●
+                    </span>
+                  )}
+
+                  <span className="flex items-center gap-2">
+                    <span
+                      className="h-1.5 w-1.5 rounded-full"
+                      style={{
+                        backgroundColor: isLive
+                          ? "var(--color-accent)"
+                          : "var(--color-text-muted)",
+                      }}
+                    />
+                    <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-text-mono md:text-xs">
+                      {`0${i + 1} / 04`}
+                    </span>
+                  </span>
+
+                  <h3
+                    className={`
+                      font-serif text-3xl leading-tight tracking-tight text-text-primary
+                      md:text-4xl
+                      ${isLive ? "" : "italic text-text-italic"}
+                    `}
+                  >
+                    {ind.name}
+                    {!isLive && (
+                      <span
+                        aria-hidden="true"
+                        className="
+                          ml-2 inline-flex h-6 w-6 items-center justify-center
+                          rounded-full font-mono text-[12px] not-italic
+                          text-text-muted
+                          md:h-7 md:w-7 md:text-sm
+                        "
+                        style={{
+                          border: "1px solid var(--color-border-medium)",
+                        }}
+                      >
+                        +
+                      </span>
+                    )}
+                  </h3>
+
+                  <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-text-mono md:text-xs">
+                    {ind.statusLabel}
+                  </span>
+
+                  <span
+                    className="
+                      mt-1 inline-flex items-center gap-2
+                      font-mono text-[10px] uppercase tracking-[0.2em]
+                      transition-colors duration-200
+                    "
+                    style={{
+                      color: isLive
+                        ? "var(--color-text-primary)"
+                        : "var(--color-text-muted)",
+                    }}
+                  >
+                    {isLive ? "Demo öffnen" : "Im Karussell zeigen"}
+                    <span
+                      aria-hidden="true"
+                      className="transition-transform duration-200 group-hover:translate-x-0.5"
+                    >
+                      →
+                    </span>
+                  </span>
+                </button>
+              </motion.li>
+            );
+          })}
+        </motion.ul>
+      </div>
+    </section>
+  );
+}

@@ -1,26 +1,55 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Studio Light — Background-Hierarchy (warmes Off-White) */
+  --color-page: #fafaf7;
+  --color-surface: #f4f2ec;
+  --color-surface-elevated: #eeeae0;
+  --color-surface-darker: #e8e3d6;
+
+  /* Studio Light — Text-Hierarchy (warmes Schwarz auf hell) */
+  --color-text-primary: #1a1a1a;
+  --color-text-italic: #6b6b68;
+  --color-text-body: #2a2a28;
+  --color-text-secondary: #5a5a55;
+  --color-text-muted: #8a8a85;
+  --color-text-mono: #4a4a45;
+
+  /* Studio Accent (Lime) */
+  --color-accent: #d4ff4f;
+  --color-accent-bright: #e5ff66;
+  --color-accent-dark: #1a1a1a; /* dunkler Pill-Background fuer Lime-on-Dark CTAs */
+
+  /* Studio Light — Borders (warm-stone) */
+  --color-border-subtle: rgba(26, 26, 26, 0.08);
+  --color-border-medium: rgba(26, 26, 26, 0.16);
+  --color-border-strong: rgba(26, 26, 26, 0.28);
+  --color-border-divider: rgba(26, 26, 26, 0.06);
+  --color-border-accent: rgba(26, 26, 26, 0.85);
+
+  /* Fonts (verknuepft mit next/font CSS-Variablen) */
+  --font-serif: var(--font-serif);
+  --font-mono: var(--font-mono);
+  --font-sans: var(--font-sans);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-page);
+  color: var(--color-text-primary);
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: #1a1a1a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0ms !important;
+  }
 }

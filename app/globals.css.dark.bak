@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  /* Studio Background-Hierarchy */
+  --color-page: #0a0a0a;
+  --color-surface: #0f0f0f;
+  --color-surface-elevated: #141414;
+  --color-surface-darker: #050505;
+
+  /* Studio Text-Hierarchy (cream-off-white, kein reines Weiß) */
+  --color-text-primary: #eae5dd;
+  --color-text-italic: #a8a299;
+  --color-text-body: #d4d0c8;
+  --color-text-secondary: #9a958b;
+  --color-text-muted: #6b665d;
+  --color-text-mono: #c8c3b8;
+
+  /* Studio Accent (Lime) */
+  --color-accent: #d4ff4f;
+  --color-accent-bright: #e5ff66;
+
+  /* Studio Borders */
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-medium: rgba(255, 255, 255, 0.15);
+  --color-border-strong: rgba(255, 255, 255, 0.25);
+  --color-border-divider: rgba(255, 255, 255, 0.06);
+  --color-border-accent: rgba(212, 255, 79, 0.4);
+
+  /* Fonts (verknüpft mit next/font CSS-Variablen) */
+  --font-serif: var(--font-serif);
+  --font-mono: var(--font-mono);
+  --font-sans: var(--font-sans);
+}
+
+html,
+body {
+  background-color: var(--color-page);
+  color: var(--color-text-primary);
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-page);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0ms !important;
+  }
+}
