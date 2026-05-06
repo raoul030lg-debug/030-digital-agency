@@ -143,7 +143,7 @@ export default function Contact() {
       id="kontakt"
       aria-label="Kontakt"
       className="
-        relative w-full bg-page
+        relative w-full bg-transparent
         px-6 py-24 md:px-10 md:py-28
         lg:px-12 lg:py-32
       "

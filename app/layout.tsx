@@ -37,6 +37,38 @@ export default function RootLayout({
       lang="de"
       className={`${fraunces.variable} ${jetbrainsMono.variable} ${inter.variable} antialiased`}
     >
+      <head>
+        <link
+          rel="preload"
+          as="image"
+          href="/backgrounds/01_window_outside.webp"
+          type="image/webp"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/backgrounds/02_window_inside.webp"
+          type="image/webp"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/backgrounds/03_studio_wide.webp"
+          type="image/webp"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/backgrounds/04_workspace_closer.webp"
+          type="image/webp"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/backgrounds/05_smartphone_macro.webp"
+          type="image/webp"
+        />
+      </head>
       <body className="min-h-screen bg-page text-text-primary font-sans">
         {children}
       </body>

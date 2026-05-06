@@ -5,24 +5,76 @@ import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import Pricing from "./components/Pricing";
 import Process from "./components/Process";
-import ScrollFrameSequence from "./components/ScrollFrameSequence";
 import Showcase from "./components/Showcase";
 import TechStack from "./components/TechStack";
+import ZoomThroughBackground from "./components/ZoomThroughBackground";
 
 export default function Home() {
   return (
     <main>
-      <ScrollFrameSequence>
+      <ZoomThroughBackground
+        imageSrc="/backgrounds/01_window_outside.webp"
+        direction="in"
+      >
         <Hero />
+      </ZoomThroughBackground>
+
+      <ZoomThroughBackground
+        imageSrc="/backgrounds/02_window_inside.webp"
+        direction="in"
+      >
         <Process />
-      </ScrollFrameSequence>
-      <Showcase />
-      <Pricing />
-      <TechStack />
-      <FAQ />
-      <Contact />
-      <About />
-      <Footer />
+      </ZoomThroughBackground>
+
+      <ZoomThroughBackground
+        imageSrc="/backgrounds/03_studio_wide.webp"
+        direction="in"
+      >
+        <Showcase />
+      </ZoomThroughBackground>
+
+      <ZoomThroughBackground
+        imageSrc="/backgrounds/04_workspace_closer.webp"
+        direction="in"
+      >
+        <Pricing />
+      </ZoomThroughBackground>
+
+      <ZoomThroughBackground
+        imageSrc="/backgrounds/05_smartphone_macro.webp"
+        direction="in"
+      >
+        <TechStack />
+      </ZoomThroughBackground>
+
+      <ZoomThroughBackground
+        imageSrc="/backgrounds/04_workspace_closer.webp"
+        direction="out"
+      >
+        <FAQ />
+      </ZoomThroughBackground>
+
+      <ZoomThroughBackground
+        imageSrc="/backgrounds/03_studio_wide.webp"
+        direction="out"
+      >
+        <Contact />
+      </ZoomThroughBackground>
+
+      <ZoomThroughBackground
+        imageSrc="/backgrounds/02_window_inside.webp"
+        direction="out"
+      >
+        <About />
+      </ZoomThroughBackground>
+
+      <ZoomThroughBackground
+        imageSrc="/backgrounds/01_window_outside.webp"
+        direction="out"
+        overlayOpacity={0.7}
+      >
+        <Footer />
+      </ZoomThroughBackground>
     </main>
   );
 }

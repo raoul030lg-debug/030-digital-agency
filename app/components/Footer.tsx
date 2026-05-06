@@ -87,7 +87,7 @@ export default function Footer() {
     <footer
       aria-label="Seitenfuß"
       className="
-        relative w-full bg-surface
+        relative w-full bg-transparent
         px-6 pb-10 pt-16 md:px-10 md:pb-12 md:pt-20
         lg:px-12 lg:pb-14 lg:pt-24
       "
