@@ -51,6 +51,21 @@ const KEYFRAMES: Keyframe[] = [
     prompt:
       "Cinematic architectural photograph, extreme close-up of a single smartphone on light wooden surface, screen displaying a beautiful modern minimalist craftsman website with subtle lime green accents, golden hour sunlight casting warm shadow across surface, off-white blurred background, warm beige tones, photorealistic 4k, professional product photography, very shallow depth of field, scandinavian aesthetic, minimal composition",
   },
+  {
+    name: "06_lime_plant_macro",
+    prompt:
+      "Cinematic architectural photograph, extreme macro close-up of a single lime green pothos leaf on light wooden surface, water droplet on leaf, golden hour sunlight backlighting the leaf making it glow translucent lime green, off-white blurred background, warm beige tones, photorealistic 4k, professional botanical photography, very shallow depth of field, scandinavian aesthetic, minimal composition, no people",
+  },
+  {
+    name: "07_screen_wireframe",
+    prompt:
+      "Cinematic architectural photograph, top-down macro shot of a paper sketchbook open on light wooden workbench, hand-drawn website wireframe sketches in thin black pen with subtle lime green accent marker, golden hour sunlight casting long warm shadow from the right, single mechanical pencil and small lime green plant in soft focus at edge of frame, off-white blurred background, warm beige tones, photorealistic 4k, professional product photography, shallow depth of field, scandinavian aesthetic, minimal composition, no people, no faces",
+  },
+  {
+    name: "08_berlin_skyline",
+    prompt:
+      "Cinematic architectural photograph, view from inside a modern Berlin design studio looking out through a large floor-to-ceiling industrial window, Berlin skyline visible with the Fernsehturm TV tower in the distance, golden hour sunset light casting warm orange and pink hues across the sky, off-white interior walls visible, polished concrete floor in foreground out of focus, warm beige tones, photorealistic 4k, professional architecture photography, depth of field, no people, scandinavian aesthetic, minimal composition",
+  },
 ];
 
 async function generateOne(frame: Keyframe) {

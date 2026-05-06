@@ -48,21 +48,21 @@ export default function Home() {
       </ZoomThroughBackground>
 
       <ZoomThroughBackground
-        imageSrc="/backgrounds/04_workspace_closer.webp"
-        direction="out"
+        imageSrc="/backgrounds/06_lime_plant_macro.webp"
+        direction="in"
       >
         <FAQ />
       </ZoomThroughBackground>
 
       <ZoomThroughBackground
-        imageSrc="/backgrounds/03_studio_wide.webp"
-        direction="out"
+        imageSrc="/backgrounds/07_screen_wireframe.webp"
+        direction="in"
       >
         <Contact />
       </ZoomThroughBackground>
 
       <ZoomThroughBackground
-        imageSrc="/backgrounds/02_window_inside.webp"
+        imageSrc="/backgrounds/08_berlin_skyline.webp"
         direction="out"
       >
         <About />

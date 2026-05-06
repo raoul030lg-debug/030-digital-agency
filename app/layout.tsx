@@ -68,6 +68,24 @@ export default function RootLayout({
           href="/backgrounds/05_smartphone_macro.webp"
           type="image/webp"
         />
+        <link
+          rel="preload"
+          as="image"
+          href="/backgrounds/06_lime_plant_macro.webp"
+          type="image/webp"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/backgrounds/07_screen_wireframe.webp"
+          type="image/webp"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/backgrounds/08_berlin_skyline.webp"
+          type="image/webp"
+        />
       </head>
       <body className="min-h-screen bg-page text-text-primary font-sans">
         {children}
