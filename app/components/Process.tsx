@@ -151,7 +151,7 @@ export default function Process() {
               className="h-1.5 w-1.5 rounded-full"
               style={{ backgroundColor: "var(--color-accent)" }}
             />
-            01 / 06 · So arbeite ich
+            01 / 07 · So arbeite ich
           </span>
         </motion.div>
 

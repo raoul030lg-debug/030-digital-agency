@@ -112,7 +112,7 @@ export default function About() {
               className="h-1.5 w-1.5 rounded-full"
               style={{ backgroundColor: "var(--color-accent)" }}
             />
-            02 / 06 · Über mich
+            07 / 07 · Über mich
           </span>
         </motion.div>
 
@@ -222,23 +222,49 @@ export default function About() {
                   backgroundColor: "var(--color-accent-dark)",
                 }}
               >
+                {/* Lime corner-rule top-right */}
+                <span
+                  aria-hidden="true"
+                  className="absolute right-5 top-5 h-12 w-px"
+                  style={{ backgroundColor: "var(--color-accent)" }}
+                />
+                <span
+                  aria-hidden="true"
+                  className="absolute right-5 top-5 h-px w-12"
+                  style={{ backgroundColor: "var(--color-accent)" }}
+                />
+
+                {/* Initials block */}
                 <span
                   className="
-                    font-serif italic font-normal text-7xl
-                    md:text-8xl
+                    font-serif italic font-normal
+                    text-[8rem] leading-none tracking-tighter
+                    md:text-[10rem]
                   "
-                  style={{ color: "var(--color-page)" }}
+                  style={{ color: "var(--color-accent)" }}
                 >
                   RH
                 </span>
+
+                {/* Status row bottom */}
                 <span
                   className="
-                    absolute left-5 top-5
+                    absolute inset-x-5 bottom-5
+                    flex items-center justify-between
                     font-mono text-[10px] uppercase tracking-[0.2em]
                   "
                   style={{ color: "var(--color-accent)" }}
                 >
-                  Foto folgt
+                  <span className="inline-flex items-center gap-2">
+                    <span
+                      className="h-1.5 w-1.5 rounded-full"
+                      style={{ backgroundColor: "var(--color-accent)" }}
+                    />
+                    Foto folgt
+                  </span>
+                  <span style={{ color: "var(--color-page)", opacity: 0.6 }}>
+                    Raoul H.
+                  </span>
                 </span>
               </div>
               <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.2em] text-text-mono">

@@ -210,7 +210,7 @@ export default function Pricing() {
               className="h-1.5 w-1.5 rounded-full"
               style={{ backgroundColor: "var(--color-accent)" }}
             />
-            03 / 06 · Preise
+            03 / 07 · Preise
           </span>
         </motion.div>
 

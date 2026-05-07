@@ -138,7 +138,7 @@ export default function FAQ() {
               className="h-1.5 w-1.5 rounded-full"
               style={{ backgroundColor: "var(--color-accent)" }}
             />
-            06 / 06 · FAQ
+            05 / 07 · FAQ
           </span>
         </motion.div>
 

@@ -29,8 +29,6 @@ const LEGAL_LINKS: LinkItem[] = [
 const CONTACT_LINKS: LinkItem[] = [
   { label: "WhatsApp", href: WHATSAPP_HREF, external: true },
   { label: "hi@030.digital", href: MAIL_HREF, external: true },
-  { label: "Instagram", href: "https://instagram.com/", external: true },
-  { label: "LinkedIn", href: "https://linkedin.com/", external: true },
 ];
 
 function FooterColumn({

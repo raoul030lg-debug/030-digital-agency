@@ -168,7 +168,7 @@ export default function Contact() {
               className="h-1.5 w-1.5 rounded-full"
               style={{ backgroundColor: "var(--color-accent)" }}
             />
-            Kontakt · 1–2 h Antwort
+            06 / 07 · Kontakt
           </span>
         </motion.div>
 

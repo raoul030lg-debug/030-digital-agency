@@ -152,7 +152,7 @@ export default function Showcase() {
               className="h-1.5 w-1.5 rounded-full"
               style={{ backgroundColor: "var(--color-accent)" }}
             />
-            02 / 06 · Showcase
+            02 / 07 · Showcase
           </span>
         </motion.div>
 

@@ -230,7 +230,7 @@ export default function TechStack() {
               className="h-1.5 w-1.5 rounded-full"
               style={{ backgroundColor: "var(--color-accent)" }}
             />
-            04 / 06 · Was du bekommst
+            04 / 07 · Was du bekommst
           </span>
         </motion.div>
 
