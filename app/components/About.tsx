@@ -191,14 +191,15 @@ export default function About() {
               <p>
                 Ich bin Raoul, lebe in Berlin und baue 030 Digital
                 als Solo-Studio. Mein Stack ist neuer als das, was die meisten
-                Web-Agenturen kennen — Next.js 16, Three.js, AI als Werkzeug.
+                Web-Agenturen kennen — Next.js 16, GSAP, AI als Werkzeug.
                 Damit baue ich Sites, die normalerweise nur Studios mit fünf
                 Leuten machen — solo, direkt, ohne Abo.
               </p>
               <p>
-                AI und 3D sind nicht das Marketing — sie sind das Werkzeug.
-                Mit Alex (mein AI-Agent für Erstkontakt + Filterung) bin ich
-                für dich erreichbar, ohne dass es zur Vollzeit-Hotline wird.
+                AI und cinematische Animationen sind das Werkzeug, nicht das
+                Marketing. Mit Alex (mein AI-Agent für Erstkontakt + Filterung)
+                bin ich für dich erreichbar, ohne dass es zur Vollzeit-Hotline
+                wird.
               </p>
             </div>
           </motion.div>

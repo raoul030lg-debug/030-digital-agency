@@ -404,7 +404,7 @@ export default function Contact() {
                   name="message"
                   required
                   rows={5}
-                  placeholder="Branche, Wunsch-Lieferzeit, Tier (BASIC/PREMIUM)"
+                  placeholder="Branche, Wunsch-Lieferzeit, Handwerker-Website oder Premium-Warteliste?"
                   className={`${inputClass} resize-y min-h-[140px]`}
                   style={{ borderColor: "var(--color-border-medium)" }}
                 />

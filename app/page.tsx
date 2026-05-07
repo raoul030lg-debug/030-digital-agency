@@ -15,10 +15,10 @@ const MARQUEE_ITEMS = [
   "Kein Abo",
   "Berlin",
   "Solo-Studio",
-  "48 h Onepager",
-  "7 Tage Premium",
+  "5 Tage Lieferzeit",
+  "Handwerker-Website",
   "AI-Visuals",
-  "3D & Motion",
+  "Cinematische Animation",
 ];
 
 export default function Home() {

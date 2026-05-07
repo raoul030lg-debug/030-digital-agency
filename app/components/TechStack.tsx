@@ -32,9 +32,9 @@ const TOOLS: Tool[] = [
     description: "Präzise UI-Animationen statt Parallax-Slop.",
   },
   {
-    name: "Three.js / R3F",
-    category: "3D / WebGL",
-    description: "Echtes 3D im Browser. Dein USP.",
+    name: "GSAP + ScrollTrigger",
+    category: "Cinematische Animation",
+    description: "Scroll-Choreografie wie bei Apple. Macht Eindruck.",
   },
   {
     name: "Vercel",

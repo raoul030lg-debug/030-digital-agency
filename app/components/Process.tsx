@@ -39,7 +39,7 @@ const STEPS: Step[] = [
     position: "03 / 04",
     title: "Design + Build",
     body:
-      "BASIC: 48 h ab vollständigen Inhalten. PREMIUM: 7 Tage ab Briefing. Du bekommst eine erste Variante als interaktiven Prototyp und gibst Feedback.",
+      "5 Tage ab Erhalt aller Inhalte. Du bekommst eine erste Variante als interaktiven Prototyp und gibst Feedback. 2 Korrekturrunden inklusive.",
   },
   {
     n: "04",

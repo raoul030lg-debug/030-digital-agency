@@ -231,8 +231,8 @@ export default function Hero() {
             lg:text-xl
           "
         >
-          Ich baue moderne Websites mit AI-gestützten Visuals, 3D und
-          Premium-Animation. Onepager in 48 h, Premium-Sites in 7 Tagen.
+          Ich baue moderne Websites mit AI-gestützten Visuals und
+          cinematischen Animationen. Handwerker-Websites in 5 Tagen.
           Festpreis. Kein WordPress. Kein SELLWERK. Kein Bullshit.
         </motion.p>
 

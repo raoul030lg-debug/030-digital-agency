@@ -24,11 +24,11 @@ type FaqItem = {
 const ITEMS: FaqItem[] = [
   {
     q: "Was kostet das wirklich?",
-    a: "Genau das, was im Pricing steht — 499 € BASIC oder 1.499 € PREMIUM einmalig. Logo und Google Business optional zubuchbar. Keine Setup-Gebühr, kein Stundensatz, keine Nachforderungen.",
+    a: "Genau das, was im Pricing steht — 990 € einmalig für die Handwerker-Website (oder 690 € im Rahmen der Gründungs-Aktion für die ersten 10 Kunden). Keine Setup-Gebühr, kein Stundensatz, keine Nachforderungen.",
   },
   {
     q: "Wie schnell ist die Site online?",
-    a: "BASIC 48 Stunden ab Erhalt aller Inhalte. PREMIUM 7 Tage ab Briefing-Call. Verzögerungen entstehen meistens durch fehlende Inhalte deinerseits — nicht durch mich.",
+    a: "5 Tage ab Erhalt aller Inhalte. Verzögerungen entstehen meistens durch fehlende Inhalte deinerseits — nicht durch mich.",
   },
   {
     q: "Was kommt nach dem ersten Jahr?",

@@ -26,7 +26,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "030 Digital — Eine Website. Ein Festpreis. Kein Abo.",
   description:
-    "Solo-Studio aus Berlin. Moderne Websites mit AI-gestützten Visuals, 3D und Premium-Animation. Onepager in 48 h, Premium-Sites in 7 Tagen. Festpreis.",
+    "Solo-Studio aus Berlin. Moderne Websites mit AI-gestützten Visuals und cinematischen Animationen. Handwerker-Websites in 5 Tagen. Festpreis.",
 };
 
 export default function RootLayout({
