@@ -3,11 +3,23 @@ import Contact from "./components/Contact";
 import FAQ from "./components/FAQ";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
+import Marquee from "./components/Marquee";
 import Pricing from "./components/Pricing";
 import Process from "./components/Process";
 import Showcase from "./components/Showcase";
 import TechStack from "./components/TechStack";
 import ZoomThroughBackground from "./components/ZoomThroughBackground";
+
+const MARQUEE_ITEMS = [
+  "Festpreis",
+  "Kein Abo",
+  "Berlin",
+  "Solo-Studio",
+  "48 h Onepager",
+  "7 Tage Premium",
+  "AI-Visuals",
+  "3D & Motion",
+];
 
 export default function Home() {
   return (
@@ -18,6 +30,8 @@ export default function Home() {
       >
         <Hero />
       </ZoomThroughBackground>
+
+      <Marquee items={MARQUEE_ITEMS} />
 
       <ZoomThroughBackground
         imageSrc="/backgrounds/02_window_inside.webp"

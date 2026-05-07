@@ -624,9 +624,16 @@ function Scene({
   );
 }
 
-export default function HeroSkyline3D() {
+type HeroSkyline3DProps = {
+  variant?: "card" | "ambient";
+};
+
+export default function HeroSkyline3D({
+  variant = "card",
+}: HeroSkyline3DProps) {
   const reduced = useReducedMotion() ?? false;
   const isMobile = useIsMobile();
+  const ambient = variant === "ambient";
 
   const cameraState = useRef<CameraTarget>({
     yaw: 0,
@@ -696,16 +703,15 @@ export default function HeroSkyline3D() {
 
   return (
     <motion.div
-      initial={reduced ? false : { opacity: 0, scale: 0.96 }}
+      initial={reduced ? false : { opacity: 0, scale: ambient ? 1 : 0.96 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.9, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="
-        relative w-full overflow-hidden
-        rounded-2xl border
-        aspect-square lg:aspect-[4/5]
-        bg-[linear-gradient(180deg,#fafaf7_0%,#f4f0e6_55%,#eee8d8_100%)]
-      "
-      style={{ borderColor: "var(--color-border-subtle)" }}
+      transition={{ duration: 0.9, delay: ambient ? 0.3 : 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className={
+        ambient
+          ? "relative h-full w-full overflow-hidden"
+          : "relative w-full overflow-hidden rounded-2xl border aspect-square lg:aspect-[4/5] bg-[linear-gradient(180deg,#fafaf7_0%,#f4f0e6_55%,#eee8d8_100%)]"
+      }
+      style={ambient ? undefined : { borderColor: "var(--color-border-subtle)" }}
     >
       <div
         role="img"
@@ -741,21 +747,25 @@ export default function HeroSkyline3D() {
         </Canvas>
       </div>
 
-      <div className="pointer-events-none absolute right-5 top-5 flex items-center gap-2">
-        <span
-          className="h-1.5 w-1.5 rounded-full"
-          style={{ backgroundColor: "var(--color-accent)" }}
-        />
-        <span className="font-mono text-[10px] uppercase tracking-wider text-text-mono">
-          Skyline
-        </span>
-      </div>
+      {!ambient && (
+        <>
+          <div className="pointer-events-none absolute right-5 top-5 flex items-center gap-2">
+            <span
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ backgroundColor: "var(--color-accent)" }}
+            />
+            <span className="font-mono text-[10px] uppercase tracking-wider text-text-mono">
+              Skyline
+            </span>
+          </div>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-5 flex justify-center">
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-muted">
-          ← drag · move →
-        </span>
-      </div>
+          <div className="pointer-events-none absolute inset-x-0 bottom-5 flex justify-center">
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-muted">
+              ← drag · move →
+            </span>
+          </div>
+        </>
+      )}
     </motion.div>
   );
 }

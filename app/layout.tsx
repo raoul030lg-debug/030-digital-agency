@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Fraunces, JetBrains_Mono, Inter } from "next/font/google";
 import "./globals.css";
+import LenisProvider from "./components/LenisProvider";
+import CustomCursor from "./components/CustomCursor";
 
 const fraunces = Fraunces({
   variable: "--font-serif",
@@ -88,7 +90,8 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-page text-text-primary font-sans">
-        {children}
+        <CustomCursor />
+        <LenisProvider>{children}</LenisProvider>
       </body>
     </html>
   );

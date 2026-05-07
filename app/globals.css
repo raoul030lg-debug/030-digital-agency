@@ -39,9 +39,53 @@ body {
   color: var(--color-text-primary);
 }
 
+/* Lenis: prevent overscroll bounce, html-level scroll fully delegated to Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+body {
+  overscroll-behavior: none;
+}
+
 ::selection {
   background-color: var(--color-accent);
   color: #1a1a1a;
+}
+
+html.custom-cursor-active,
+html.custom-cursor-active body,
+html.custom-cursor-active a,
+html.custom-cursor-active button {
+  cursor: none;
+}
+
+html.custom-cursor-active input,
+html.custom-cursor-active textarea,
+html.custom-cursor-active select {
+  cursor: text;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

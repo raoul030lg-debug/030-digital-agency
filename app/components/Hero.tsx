@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
+import MagnetButton from "./MagnetButton";
 
 const WHATSAPP_HREF =
   "https://wa.me/491700000000?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20030%20Digital.";
@@ -180,9 +181,10 @@ export default function Hero() {
       {/* MAIN CONTENT — Headline füllt volle Breite */}
       <div
         className="
-          relative z-10 mx-auto flex w-full max-w-7xl flex-1
+          pointer-events-none relative z-10 mx-auto flex w-full max-w-7xl flex-1
           flex-col justify-center
           py-16 md:py-24 lg:py-28
+          [&_a]:pointer-events-auto [&_button]:pointer-events-auto
         "
       >
         <motion.h1
@@ -240,49 +242,53 @@ export default function Hero() {
           variants={fadeUp(1.0)}
           className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4 md:mt-12"
         >
-          <a
-            href={WHATSAPP_HREF}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Über WhatsApp Kontakt aufnehmen"
-            className="
-              group inline-flex min-h-[52px] items-center justify-center gap-3
-              rounded-full px-7 py-3
-              font-mono text-xs uppercase tracking-[0.18em]
-              transition-all duration-200
-              hover:gap-4
-              focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent
-              md:text-sm
-            "
-            style={{
-              backgroundColor: "#1a1a1a",
-              color: "var(--color-accent)",
-            }}
-          >
-            <span
-              className="h-1.5 w-1.5 rounded-full"
-              style={{ backgroundColor: "var(--color-accent)" }}
-            />
-            Auf WhatsApp schreiben
-            <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5">
-              →
-            </span>
-          </a>
-          <a
-            href="#showcase"
-            className="
-              inline-flex min-h-[52px] items-center justify-center
-              rounded-full border px-7 py-3
-              font-mono text-xs uppercase tracking-[0.18em] text-text-primary
-              transition-colors duration-200
-              hover:bg-black/[0.04]
-              focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent
-              md:text-sm
-            "
-            style={{ borderColor: "var(--color-border-medium)" }}
-          >
-            Showcase ansehen
-          </a>
+          <MagnetButton>
+            <a
+              href={WHATSAPP_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Über WhatsApp Kontakt aufnehmen"
+              className="
+                group inline-flex min-h-[52px] items-center justify-center gap-3
+                rounded-full px-7 py-3
+                font-mono text-xs uppercase tracking-[0.18em]
+                transition-all duration-200
+                hover:gap-4
+                focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent
+                md:text-sm
+              "
+              style={{
+                backgroundColor: "#1a1a1a",
+                color: "var(--color-accent)",
+              }}
+            >
+              <span
+                className="h-1.5 w-1.5 rounded-full"
+                style={{ backgroundColor: "var(--color-accent)" }}
+              />
+              Auf WhatsApp schreiben
+              <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5">
+                →
+              </span>
+            </a>
+          </MagnetButton>
+          <MagnetButton strength={0.25}>
+            <a
+              href="#showcase"
+              className="
+                inline-flex min-h-[52px] items-center justify-center
+                rounded-full border px-7 py-3
+                font-mono text-xs uppercase tracking-[0.18em] text-text-primary
+                transition-colors duration-200
+                hover:bg-black/[0.04]
+                focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent
+                md:text-sm
+              "
+              style={{ borderColor: "var(--color-border-medium)" }}
+            >
+              Showcase ansehen
+            </a>
+          </MagnetButton>
         </motion.div>
       </div>
 
