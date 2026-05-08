@@ -13,7 +13,7 @@ const WHATSAPP_LAUNCH =
 const LAUNCH_OFFER = {
   active: true,
   totalSlots: 10,
-  remainingSlots: 10,
+  remainingSlots: 4,
 };
 
 const HEADLINE: { word: string; italic: boolean }[] = [
