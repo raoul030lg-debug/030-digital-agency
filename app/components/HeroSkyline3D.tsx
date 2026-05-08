@@ -12,7 +12,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { motion, useReducedMotion } from "framer-motion";
 import * as THREE from "three";
 
-const ACCENT = "#d4ff4f";
+const ACCENT = "#b8935a";
 
 function clamp(v: number, min: number, max: number) {
   return Math.max(min, Math.min(max, v));

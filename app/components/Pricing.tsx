@@ -363,31 +363,24 @@ export default function Pricing() {
               p-7 md:p-9
             "
             style={{
-              backgroundColor: "var(--color-accent-dark)",
-              border: "2px solid var(--color-accent)",
+              backgroundColor: "var(--color-accent-muted)",
+              border: "1px solid color-mix(in srgb, var(--color-accent) 45%, transparent)",
               boxShadow:
-                "0 30px 70px -28px rgba(212, 255, 79, 0.55), 0 8px 22px -10px rgba(26, 26, 26, 0.25)",
+                "0 24px 60px -28px rgb(var(--color-accent-glow-rgb) / 0.45), 0 6px 18px -10px rgba(26, 26, 26, 0.08)",
             }}
           >
             <div className="flex flex-col gap-7 md:flex-row md:items-center md:gap-10">
               <div className="flex flex-col gap-3 md:flex-1">
-                <span
-                  className="
-                    inline-flex w-fit items-center gap-2 rounded-full
-                    px-3 py-1
-                    font-mono text-[10px] uppercase tracking-[0.18em]
-                    md:text-xs
-                  "
-                  style={{
-                    backgroundColor: "var(--color-accent)",
-                    color: "#1a1a1a",
-                  }}
-                >
+                <span className="inline-flex w-fit items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] md:text-xs">
                   <span
                     className="h-1.5 w-1.5 rounded-full"
-                    style={{ backgroundColor: "#1a1a1a" }}
+                    style={{ backgroundColor: "var(--color-accent)" }}
                   />
-                  Gründungs-Aktion · Erste 10 Kunden
+                  <span style={{ color: "var(--color-accent)" }}>
+                    Gründungs-Aktion
+                  </span>
+                  <span className="text-text-mono opacity-60">·</span>
+                  <span className="text-text-mono">Erste 10 Kunden</span>
                 </span>
 
                 <h3
@@ -395,28 +388,25 @@ export default function Pricing() {
                     font-serif text-3xl leading-tight tracking-tight
                     md:text-4xl lg:text-5xl
                   "
-                  style={{ color: "var(--color-page)" }}
+                  style={{ color: "var(--color-text-primary)" }}
                 >
-                  690 €{" "}
-                  <span
-                    className="font-sans text-xl line-through opacity-60 md:text-2xl"
-                    style={{ color: "var(--color-page)" }}
-                  >
+                  <span style={{ color: "var(--color-accent)" }}>690 €</span>{" "}
+                  <span className="font-sans text-xl text-text-muted line-through md:text-2xl">
                     statt 990 €
+                  </span>{" "}
+                  <span className="font-sans text-base text-text-secondary md:text-lg">
+                    — 30 % Rabatt
                   </span>
                 </h3>
 
-                <ul
-                  className="mt-1 flex flex-col gap-1.5 font-sans text-sm leading-relaxed md:text-[15px]"
-                  style={{ color: "var(--color-page)" }}
-                >
+                <ul className="mt-1 flex flex-col gap-1.5 font-sans text-sm leading-relaxed text-text-body md:text-[15px]">
                   <li className="flex items-start gap-2">
                     <span
                       aria-hidden="true"
                       className="mt-[7px] h-1.5 w-1.5 flex-none rounded-full"
                       style={{ backgroundColor: "var(--color-accent)" }}
                     />
-                    300 € Rabatt auf die Handwerker-Website
+                    1 Jahr Wartung kostenlos
                   </li>
                   <li className="flex items-start gap-2">
                     <span
@@ -424,7 +414,7 @@ export default function Pricing() {
                       className="mt-[7px] h-1.5 w-1.5 flex-none rounded-full"
                       style={{ backgroundColor: "var(--color-accent)" }}
                     />
-                    1 Jahr Wartung gratis
+                    Logo Design kostenlos (Wert 149 €)
                   </li>
                   <li className="flex items-start gap-2">
                     <span
@@ -432,49 +422,35 @@ export default function Pricing() {
                       className="mt-[7px] h-1.5 w-1.5 flex-none rounded-full"
                       style={{ backgroundColor: "var(--color-accent)" }}
                     />
-                    Logo gratis (Wert 149 €)
+                    Gesamtersparnis ca. 800 €
                   </li>
                 </ul>
-
-                <p
-                  className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] md:text-xs"
-                  style={{ color: "var(--color-accent)" }}
-                >
-                  Gesamtersparnis ca. 800 €
-                </p>
               </div>
 
               <div className="flex flex-col items-start gap-4 md:items-end">
                 <div
                   className="
                     rounded-2xl px-5 py-4
-                    font-mono text-[11px] uppercase tracking-[0.2em]
-                    md:text-xs
+                    font-mono text-[10px] uppercase tracking-[0.22em]
+                    text-text-mono md:text-xs
                   "
                   style={{
-                    backgroundColor: "rgba(212,255,79,0.08)",
-                    border: "1px solid rgba(212,255,79,0.35)",
-                    color: "var(--color-accent)",
+                    backgroundColor: "var(--color-page)",
+                    border:
+                      "1px solid color-mix(in srgb, var(--color-accent) 35%, transparent)",
                   }}
                 >
-                  <span className="block text-[10px] opacity-80">
-                    Verfügbar
-                  </span>
+                  <span className="block">Noch</span>
                   <span
                     className="mt-1 block font-serif text-3xl normal-case tracking-tight md:text-4xl"
                     style={{ color: "var(--color-accent)" }}
                   >
                     {slotsLeft}
-                    <span
-                      className="ml-1 font-mono text-base opacity-70"
-                      style={{ color: "var(--color-page)" }}
-                    >
+                    <span className="ml-1 font-mono text-base text-text-muted">
                       / {slotsTotal}
                     </span>
                   </span>
-                  <span className="mt-1 block text-[10px] opacity-80">
-                    Plätze
-                  </span>
+                  <span className="mt-1 block">Plätze verfügbar</span>
                 </div>
 
                 <MagnetButton strength={0.25}>
@@ -536,7 +512,7 @@ export default function Pricing() {
               backgroundColor: "var(--color-page)",
               border: "2px solid var(--color-accent)",
               boxShadow:
-                "0 24px 60px -28px rgba(212, 255, 79, 0.45), 0 6px 18px -8px rgba(26, 26, 26, 0.08)",
+                "0 24px 60px -28px rgb(var(--color-accent-glow-rgb) / 0.45), 0 6px 18px -8px rgba(26, 26, 26, 0.08)",
             }}
           >
             <span
@@ -568,7 +544,7 @@ export default function Pricing() {
                 990 €
               </span>
               <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-text-mono md:text-xs">
-                all-inclusive · einmalig
+                einmalig · inkl. MwSt.
               </span>
             </div>
 
@@ -665,16 +641,17 @@ export default function Pricing() {
             </span>
 
             <div className="mt-5 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-              <span
-                className="font-serif text-5xl italic leading-none tracking-tight text-text-italic md:text-6xl"
-              >
-                Coming Soon
+              <span className="font-serif text-6xl leading-none tracking-tight text-text-italic md:text-7xl">
+                ab 1.990 €
+              </span>
+              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-text-mono md:text-xs">
+                Verfügbar Q3 2026
               </span>
             </div>
 
             <p className="mt-4 font-sans text-sm leading-relaxed text-text-secondary md:text-[15px]">
-              Custom-Design + erweiterte Features. Trag dich auf die Warteliste
-              ein und sei zuerst dran.
+              Für Handwerker, die aktiv über Google neue Kunden gewinnen wollen.
+              Trag dich auf die Warteliste ein und sei zuerst dran.
             </p>
 
             <div
@@ -740,8 +717,8 @@ export default function Pricing() {
             md:text-xs
           "
         >
-          Alle Preise zzgl. 19 % USt. Keine Setupgebühr. Kein Abo. Quellcode +
-          Domain gehören dir.
+          Alle Preise inkl. 19 % MwSt. Keine Setupgebühr. Kein Abo. Quellcode
+          + Domain gehören dir.
         </motion.p>
       </div>
     </section>

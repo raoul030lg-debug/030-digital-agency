@@ -109,7 +109,7 @@ export default function Hero() {
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(ellipse at 70% 30%, rgba(212,255,79,0.10) 0%, transparent 55%), radial-gradient(ellipse at 20% 80%, rgba(26,26,26,0.025) 0%, transparent 60%)",
+            "radial-gradient(ellipse at 70% 30%, rgb(var(--color-accent-glow-rgb) / 0.10) 0%, transparent 55%), radial-gradient(ellipse at 20% 80%, rgba(26,26,26,0.025) 0%, transparent 60%)",
         }}
       />
 

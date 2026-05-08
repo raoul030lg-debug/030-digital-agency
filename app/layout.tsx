@@ -3,6 +3,7 @@ import { Fraunces, JetBrains_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import LenisProvider from "./components/LenisProvider";
 import CustomCursor from "./components/CustomCursor";
+import SplashGate from "./components/SplashGate";
 
 const fraunces = Fraunces({
   variable: "--font-serif",
@@ -90,6 +91,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-page text-text-primary font-sans">
+        <SplashGate />
         <CustomCursor />
         <LenisProvider>{children}</LenisProvider>
       </body>

@@ -15,10 +15,18 @@
   --color-text-muted: #8a8a85;
   --color-text-mono: #4a4a45;
 
-  /* Studio Accent (Lime) */
-  --color-accent: #d4ff4f;
-  --color-accent-bright: #e5ff66;
-  --color-accent-dark: #1a1a1a; /* dunkler Pill-Background fuer Lime-on-Dark CTAs */
+  /* Studio Accent — AKTIV: Messing (Bauhaus-Brass) */
+  --color-accent: #b8935a;
+  --color-accent-bright: #c9a571;
+  --color-accent-muted: rgba(184, 147, 90, 0.12);
+  --color-accent-glow-rgb: 184 147 90;
+  --color-accent-dark: #1a1a1a; /* dunkler Pill-Background fuer Accent-on-Dark CTAs */
+
+  /* BACKUP: Lime-Branding (Studio Light v1). Aktivieren: oben auskommentieren, unten reinholen. */
+  /* --color-accent: #d4ff4f; */
+  /* --color-accent-bright: #e5ff66; */
+  /* --color-accent-muted: rgba(212, 255, 79, 0.12); */
+  /* --color-accent-glow-rgb: 212 255 79; */
 
   /* Studio Light — Borders (warm-stone) */
   --color-border-subtle: rgba(26, 26, 26, 0.08);
@@ -86,6 +94,32 @@ html.custom-cursor-active select {
   to {
     transform: translateX(-50%);
   }
+}
+
+@keyframes splash-draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes splash-fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes splash-window-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.splash-window-pulse {
+  animation: splash-window-pulse 1.4s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

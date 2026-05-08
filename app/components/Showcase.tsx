@@ -250,7 +250,7 @@ function IndustryCard({ industry, reduce }: CardProps) {
     backgroundColor: "#fafaf7",
     border: "2px solid var(--color-accent)",
     boxShadow:
-      "0 18px 48px -24px rgba(212, 255, 79, 0.55), 0 4px 14px -8px rgba(26,26,26,0.06)",
+      "0 18px 48px -24px rgb(var(--color-accent-glow-rgb) / 0.55), 0 4px 14px -8px rgba(26,26,26,0.06)",
   };
 
   const hoverTransition = { duration: 0.25, ease: [0.22, 1, 0.36, 1] as const };
@@ -262,7 +262,7 @@ function IndustryCard({ industry, reduce }: CardProps) {
           y: -4,
           scale: 1.02,
           boxShadow:
-            "0 28px 60px -22px rgba(212, 255, 79, 0.7), 0 8px 20px -10px rgba(26,26,26,0.08)",
+            "0 28px 60px -22px rgb(var(--color-accent-glow-rgb) / 0.7), 0 8px 20px -10px rgba(26,26,26,0.08)",
         },
     transition: hoverTransition,
   };

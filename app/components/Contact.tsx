@@ -251,7 +251,7 @@ export default function Contact() {
                 color: "var(--color-accent)",
                 boxShadow: reduce
                   ? "none"
-                  : "0 0 0 0 rgba(212, 255, 79, 0)",
+                  : "0 0 0 0 rgb(var(--color-accent-glow-rgb) / 0)",
               }}
             >
               <span className="flex items-center gap-3">

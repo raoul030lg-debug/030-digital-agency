@@ -35,12 +35,12 @@ export default function HeroPlaceholder3D() {
         />
       </div>
 
-      {/* Lime-Glow-Punkt zentral, sehr subtil */}
+      {/* Accent-Glow-Punkt zentral, sehr subtil */}
       <div
         className="pointer-events-none absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{
           backgroundColor: "var(--color-accent)",
-          boxShadow: "0 0 24px 4px rgba(212, 255, 79, 0.35)",
+          boxShadow: "0 0 24px 4px rgb(var(--color-accent-glow-rgb) / 0.35)",
         }}
       />
 
