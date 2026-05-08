@@ -3,9 +3,9 @@
 import { useInView } from "./useInView";
 
 const NOTIFICATIONS = [
-  { app: "WHATSAPP", time: "9:38", text: "Frau Schmidt: \u201EWann k\u00F6nnen Sie kommen?\u201C" },
+  { app: "NACHRICHT", time: "9:38", text: "Frau Schmidt: \u201EWann k\u00F6nnen Sie kommen?\u201C" },
   { app: "ANRUF", time: "9:23", text: "Verpasst: +49 30 12345678" },
-  { app: "WHATSAPP", time: "8:51", text: "Hr. Weber: \u201EK\u00F6nnen Sie streichen?\u201C" },
+  { app: "NACHRICHT", time: "8:51", text: "Hr. Weber: \u201EK\u00F6nnen Sie streichen?\u201C" },
 ];
 
 export default function Act03Notifications() {
@@ -31,9 +31,8 @@ export default function Act03Notifications() {
           }`}
         >
           <div
-            className="relative mx-auto h-[420px] w-64 overflow-hidden rounded-3xl p-4"
+            className="relative mx-auto h-[420px] w-64 overflow-hidden rounded-3xl bg-surface-1 p-4"
             style={{
-              backgroundColor: "#1a1a1a",
               border:
                 "1px solid color-mix(in srgb, var(--color-accent) 40%, transparent)",
             }}
@@ -45,11 +44,10 @@ export default function Act03Notifications() {
             {NOTIFICATIONS.map((notif, i) => (
               <div
                 key={`${notif.app}-${notif.time}`}
-                className={`mb-2 rounded-xl p-3 transition-all duration-700 ease-out ${
+                className={`mb-2 rounded-xl bg-surface-2 p-3 transition-all duration-700 ease-out ${
                   inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 }`}
                 style={{
-                  backgroundColor: "#2a2a2a",
                   transitionDelay: `${500 + i * 300}ms`,
                 }}
               >
@@ -80,7 +78,7 @@ export default function Act03Notifications() {
           </h2>
           <p className="max-w-md text-base leading-relaxed text-text-muted md:text-lg">
             Direkt auf dein Handy. Kein E-Mail-Postfach. Kein Lead-Formular.
-            WhatsApp und Anruf, fertig.
+            Anruf und Nachricht, fertig.
           </p>
         </div>
       </div>

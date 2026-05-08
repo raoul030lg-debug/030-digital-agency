@@ -6,7 +6,7 @@ export default function ScrollStory() {
   return (
     <div
       aria-label="Wie wir arbeiten — drei Akte"
-      style={{ backgroundColor: "#0a0a0a" }}
+      className="bg-bg"
     >
       <Act01Message />
       <Act02Process />

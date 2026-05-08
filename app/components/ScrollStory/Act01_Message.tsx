@@ -43,23 +43,20 @@ export default function Act01Message() {
           }`}
         >
           <div
-            className="mx-auto max-w-sm rounded-3xl p-5"
+            className="mx-auto max-w-sm rounded-3xl bg-surface-1 p-5"
             style={{
-              backgroundColor: "#1a1a1a",
               border:
                 "1px solid color-mix(in srgb, var(--color-accent) 40%, transparent)",
             }}
           >
             <div className="mb-3 flex items-center gap-2">
               <span
-                className="h-2 w-2 rounded-full"
-                style={{ backgroundColor: "#25D366" }}
+                className="h-2 w-2 rounded-full bg-accent"
               />
               <span
-                className="font-mono text-[10px] tracking-widest"
-                style={{ color: "#25D366" }}
+                className="font-mono text-[10px] tracking-widest text-accent"
               >
-                WHATSAPP
+                NACHRICHT
               </span>
             </div>
             <p className="text-sm leading-relaxed text-page md:text-base">

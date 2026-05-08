@@ -28,6 +28,12 @@
   /* --color-accent-muted: rgba(212, 255, 79, 0.12); */
   /* --color-accent-glow-rgb: 212 255 79; */
 
+  /* ScrollStory — Dark Island (invertierte Sektion zwischen hellen Bereichen) */
+  --color-bg: #0a0a0a;
+  --color-surface-1: #1a1a1a;
+  --color-surface-2: #242424;
+  --color-border-soft: #2a2a2a;
+
   /* Studio Light — Borders (warm-stone) */
   --color-border-subtle: rgba(26, 26, 26, 0.08);
   --color-border-medium: rgba(26, 26, 26, 0.16);

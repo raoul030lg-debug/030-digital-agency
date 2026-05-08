@@ -43,14 +43,12 @@ export default function Act02Process() {
           {PHASES.map((phase, i) => (
             <div
               key={phase.tag}
-              className={`rounded-2xl p-8 text-center transition-all duration-1000 ease-out ${
+              className={`rounded-2xl bg-surface-1 p-8 text-center transition-all duration-1000 ease-out ${
+                phase.highlighted ? "border border-accent" : "border border-border-soft"
+              } ${
                 inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
               }`}
               style={{
-                backgroundColor: "#1a1a1a",
-                border: phase.highlighted
-                  ? "1px solid var(--color-accent)"
-                  : "1px solid #2a2a2a",
                 transitionDelay: `${300 + i * 200}ms`,
                 boxShadow: phase.highlighted
                   ? "0 24px 60px -28px rgb(var(--color-accent-glow-rgb) / 0.6)"
